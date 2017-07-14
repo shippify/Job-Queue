@@ -16,6 +16,6 @@ ADD index.js /app/index.js
 
 RUN npm install
 
-EXPOSE 3000 6379
+EXPOSE 3030 6379
 
 CMD service redis-server start & node index.js

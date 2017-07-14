@@ -3,7 +3,7 @@ const kue = require('kue');
 const ui = require('kue-ui');
 const basicAuth = require('basic-auth-connect');
 
-const port = 3000;
+const port = 3030;
 
 const redisConfig = {
     host: process.env.JOB_QUEUE_REDIS_HOST || 'localhost',
