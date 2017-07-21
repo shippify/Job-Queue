@@ -15,7 +15,8 @@ if (process.env.JOB_QUEUE_REDIS_PASS) {
 }
 
 const queue = kue.createQueue({
-    redis: redisConfig
+  disableSearch: false,
+  redis: redisConfig
 });
 
 queue.on('error', function(err) {
