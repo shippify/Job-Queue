@@ -38,4 +38,6 @@ if (process.env.JOB_QUEUE_USERNAME && process.env.JOB_QUEUE_PASSWORD) {
 
 app.use('/api', kue.app)
 app.use('/kue', ui.app)
+
+app.use(express.bodyParser({limit: '50mb'}))
 app.listen(port);
