@@ -1,8 +1,7 @@
 const express = require('express');
-const kue = require('kue');
 const ui = require('kue-ui');
 const basicAuth = require('basic-auth-connect');
-
+const bodyParser = require('body-parser');
 const port = 3030;
 
 const redisConfig = {
@@ -35,9 +34,16 @@ const app = express();
 if (process.env.JOB_QUEUE_USERNAME && process.env.JOB_QUEUE_PASSWORD) {
   app.use(basicAuth(process.env.JOB_QUEUE_USERNAME, process.env.JOB_QUEUE_PASSWORD));
 }
-
+app.use(bodyParser.json({
+  limit: '50mb',
+  parameterLimit: 100000
+ }))
+app.use(bodyParser.urlencoded({extended: false, limit: '50mb', parameterLimit: 100000}));
+kue.app.use(bodyParser.json({
+  limit: '50mb',
+  parameterLimit: 100000
+ }));
+kue.app.use(bodyParser.urlencoded({extended: false, limit: '50mb', parameterLimit: 100000}));
 app.use('/api', kue.app)
 app.use('/kue', ui.app)
-
-app.use(express.bodyParser({limit: '50mb'}))
 app.listen(port);
