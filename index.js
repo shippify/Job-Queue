@@ -1,5 +1,6 @@
 const express = require('express');
 const ui = require('kue-ui');
+const kue = require('kue');
 const basicAuth = require('basic-auth-connect');
 const bodyParser = require('body-parser');
 const port = 3030;
