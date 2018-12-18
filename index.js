@@ -1,6 +1,6 @@
 const express = require('express');
-const ui = require('kue-ui');
 const kue = require('kue');
+const ui = require('kue-ui-express');
 const basicAuth = require('basic-auth-connect');
 const bodyParser = require('body-parser');
 const port = 3030;
@@ -24,13 +24,9 @@ queue.on('error', function(err) {
     console.log(err);
 });
 
-ui.setup({
-    apiURL: '/api',
-    baseURL: '/kue',
-    updateInterval: 5000
-});
-
 const app = express();
+
+ui(app, '/kue/', '/api')
 
 if (process.env.JOB_QUEUE_USERNAME && process.env.JOB_QUEUE_PASSWORD) {
   app.use(basicAuth(process.env.JOB_QUEUE_USERNAME, process.env.JOB_QUEUE_PASSWORD));
@@ -46,5 +42,5 @@ kue.app.use(bodyParser.json({
  }));
 kue.app.use(bodyParser.urlencoded({extended: false, limit: '50mb', parameterLimit: 100000}));
 app.use('/api', kue.app)
-app.use('/kue', ui.app)
+
 app.listen(port);
