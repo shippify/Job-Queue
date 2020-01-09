@@ -13,7 +13,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.15.3",
     "kue": "^0.11.6",
-    "kue-ui-client-mod": "^1.0.4",
+    "kue-ui-client-mod": "^1.0.6",
     "kue-ui-express": "git+https://github.com/shippify/kue-ui-express.git",
     "reds": "^1.0.0"
   }
